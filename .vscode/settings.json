@@ -66,5 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "2026_CT_Rollerball_Jamie.L.sln"
+    "dotnet.defaultSolution": "2026CT_Rollerball_Jamie.L.sln"
 }

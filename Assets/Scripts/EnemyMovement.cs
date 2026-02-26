@@ -20,4 +20,5 @@ public class EnemyMovement : MonoBehaviour
             navMeshAgent.SetDestination(player.position);
         }
     }
+    
 }

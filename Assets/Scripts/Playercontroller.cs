@@ -8,6 +8,12 @@ public class PlayerController : MonoBehaviour
 
  private int count;
 
+ private int lives;
+
+ public float hitCooldown = 0f;
+
+ private float hitCooldownDuration = 1f;
+
  private float movementX;
  private float movementY;
 
@@ -16,6 +22,8 @@ public class PlayerController : MonoBehaviour
  public float speed = 0;
 
  public TextMeshProUGUI countText;
+
+public TextMeshProUGUI LivesText;
 
  public GameObject winTextObject;
 
@@ -28,6 +36,10 @@ public class PlayerController : MonoBehaviour
         count = 0;
 
         SetCountText();
+
+        lives = 3;
+
+        SetLivesText();
 
         winTextObject.SetActive(false);
     }
@@ -86,17 +98,22 @@ private void OnCollisionEnter(Collision collision)
 {
  if (collision.gameObject.CompareTag("Enemy"))
     {
-        Destroy(gameObject); 
- 
-        winTextObject.gameObject.SetActive(true);
-        winTextObject.GetComponent<TextMeshProUGUI>().text = "you lose ha u suck";
- 
+
+            lives = lives - 1;
+
+            SetLivesText();
+            hitCooldown = hitCooldownDuration;
     }
     if (collision.gameObject.CompareTag("Ground"))
         {
              IsGrounded = true;
         }
-
+    if (lives<=0)
+        {
+            Destroy(GameObject.FindGameObjectWithTag("Player"));
+            winTextObject.SetActive(true);
+             winTextObject.GetComponent<TextMeshProUGUI>().text = "you lose ha u suck";
+        }
 }
 
 private void OnCollisionExit(Collision collision)
@@ -106,5 +123,14 @@ private void OnCollisionExit(Collision collision)
             IsGrounded = false;
         }
     }
+    void SetLivesText()
+    {
+        LivesText.text = "Lives: " + lives.ToString();
+    }
 
+ void update ()
+    {
+        if (hitCooldown > 0f)
+        hitCooldown -=Time.deltaTime;
+    }
 }

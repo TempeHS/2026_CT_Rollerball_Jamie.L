@@ -79,6 +79,11 @@ void OnJump(InputValue jumpValue)
 
             SetCountText();
         }
+if (other.gameObject.CompareTag("SpeedPickUp"))
+        {
+            other.gameObject.SetActive(false);
+            speed = speed+1;
+        }
     }
 
  void SetCountText() 
